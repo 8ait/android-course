@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lab2 Леонов А. 8И7А</string>
+    <string name="button_add">Сложить два числа</string>
+    <string name="button_minus">Вычесть два числа</string>
+    <string name="button_product">Умножить два числа</string>
+    <string name="button_quotient">Разделить два числа</string>
+    <string name="edit_hint">Введите число</string>
+    <string name="operation_result">Результат операции: %1f</string>
+    <string name="result_no">Здесь будет результат...</string>
+    <string name="error_result">Ошибка: %s</string>
+</resources>
