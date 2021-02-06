@@ -26,6 +26,8 @@ class ItemAdapter(context: Context, items: ArrayList<Item>): BaseAdapter() {
         v.text = s.title
         v = view.findViewById(R.id.item_kind) as TextView
         v.text = s.kind
+        v = view.findViewById(R.id.item_cost) as TextView
+        v.text = s.priceInfo
         return view
     }
 

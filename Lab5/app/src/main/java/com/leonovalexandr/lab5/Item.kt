@@ -15,19 +15,24 @@ class Item() : Parcelable {
     // Стоимость.
     var price: Double = 0.0
 
-    val info: String
-        get() = "$kind $title ($price ₽)"
+    // Вес.
+    var weight: Double = 0.0
+
+    val priceInfo: String
+        get() = "$price ₽"
 
     constructor(parcel: Parcel) : this() {
         kind = parcel.readString() ?: ""
         title = parcel.readString() ?: ""
         price = parcel.readDouble()
+        weight = parcel.readDouble()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(kind)
         parcel.writeString(title)
         parcel.writeDouble(price)
+        parcel.writeDouble(weight)
     }
 
     override fun describeContents(): Int {

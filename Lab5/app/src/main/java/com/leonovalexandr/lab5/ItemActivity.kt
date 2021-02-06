@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
+import android.widget.Toast
 
 class ItemActivity : AppCompatActivity() {
 
@@ -26,6 +28,8 @@ class ItemActivity : AppCompatActivity() {
         editKind.setText(item.kind)
         val editPrice = findViewById<EditText>(R.id.price)
         editPrice.setText(item.price.toString())
+        val editWeight = findViewById<EditText>(R.id.weight)
+        editWeight.setText(item.weight.toString())
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -48,14 +52,32 @@ class ItemActivity : AppCompatActivity() {
             text.toString()
             this.item.price = findViewById<EditText>(R.id.price).
             text.toString().toDouble()
-            val intent = Intent()
-            intent.putExtra("index", index)
-            intent.putExtra("item", this.item)
-            setResult(Activity.RESULT_OK, intent)
+            this.item.weight = findViewById<EditText>(R.id.weight).text.toString().toDouble()
 
-            finish()
-            return true
+            if (check(this.item)){
+                val intent = Intent()
+                intent.putExtra("index", index)
+                intent.putExtra("item", this.item)
+                setResult(Activity.RESULT_OK, intent)
+
+                finish()
+                return true
+            } else {
+                var toast = Toast.makeText(applicationContext, "Неверный формат данных.", Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.TOP, 0,0)
+                toast.show()
+                return false
+            }
+
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    // Поверка модели.
+    private fun check(item: Item): Boolean {
+        return item.title.isNotBlank() &&
+                item.kind.isNotBlank() &&
+                item.price >=0 &&
+                item.weight >= 0
     }
 }
