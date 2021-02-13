@@ -13,18 +13,24 @@ class LeftFragment: Fragment() {
 
     private lateinit var mainContext: Context
 
+    private val operationFuncs = listOf(
+        Operation("+") { n1: Int, n2: Int -> n1 + n2},
+        Operation("-") { n1: Int, n2: Int -> n1 - n2},
+        Operation("*") { n1: Int, n2: Int -> n1 * n2}
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_left, container, false)
-        val listOptions = view.findViewById<ListView>(R.id.list_fruits)
+        val listOptions = view.findViewById<ListView>(R.id.list_eq)
         listOptions.adapter = ArrayAdapter<String>(
             context!!,
             android.R.layout.simple_list_item_1,
-            arrayOf("Апельсин", "Вишня", "Арбуз")
+            operationFuncs.map { x -> x.name }
         )
         listOptions.setOnItemClickListener { parent, view, position, id ->
-            (mainContext as OnDataListener).onData(position)
+            (mainContext as OnDataListener).onData(operationFuncs[position])
         }
         return view
     }

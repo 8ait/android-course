@@ -3,9 +3,20 @@ package com.leonovalexandr.lab8
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.FragmentTransaction
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.TextView
 
-class MainActivity : AppCompatActivity(), OnDataListener {
+class MainActivity : AppCompatActivity(), OnDataListener, Play {
+
+    private val operationFuncs = listOf(
+        Operation("+") { n1: Int, n2: Int -> n1 + n2},
+        Operation("-") { n1: Int, n2: Int -> n1 - n2},
+        Operation("*") { n1: Int, n2: Int -> n1 * n2}
+    )
+
+    private var rightCount = 0
+    private var wrongCount = 0
 
     private var isTwoPane = false
 
@@ -18,7 +29,7 @@ class MainActivity : AppCompatActivity(), OnDataListener {
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.frame_left, LeftFragment())
-                .add(R.id.frame_right, RightFragment(0))
+                .add(R.id.frame_right, RightFragment(operationFuncs.first()))
                 .commit()
         }
         else {
@@ -29,7 +40,7 @@ class MainActivity : AppCompatActivity(), OnDataListener {
         }
     }
 
-    override fun onData(Data: Int) {
+    override fun onData(Data: Operation) {
         supportFragmentManager
             .beginTransaction()
             .replace(
@@ -40,8 +51,34 @@ class MainActivity : AppCompatActivity(), OnDataListener {
                 RightFragment(Data)
             )
             .addToBackStack(null)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .commit()
     }
+
+    // Получить сложность раунда.
+    override fun getLevel(): Level {
+        if (rightCount == 0)
+            return Level.EASY
+
+        if (rightCount / (wrongCount + rightCount).toFloat() > 0.75)
+            return Level.HARD
+
+        if (rightCount / (wrongCount + rightCount).toFloat() > 0.50)
+            return Level.MEDIUM
+
+        return Level.EASY
+    }
+
+    override fun setRight() {
+        rightCount++
+    }
+
+    override fun setWrong() {
+        wrongCount++
+    }
+
+    override fun getScore(): Pair<Int, Int> {
+        return Pair(rightCount, wrongCount)
+    }
+
 
 }
