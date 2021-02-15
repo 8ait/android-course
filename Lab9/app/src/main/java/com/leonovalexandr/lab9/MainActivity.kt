@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), OnDataListener {
             supportFragmentManager
                 .beginTransaction()
                 .add(R.id.frame_left, leftFragment)
-                .add(R.id.frame_right, RightFragment())
+                .add(R.id.frame_right, RightFragment(null))
                 .commit()
         }
         else {
@@ -36,7 +36,17 @@ class MainActivity : AppCompatActivity(), OnDataListener {
     }
 
     override fun onData(data: Project) {
-        TODO("Not yet implemented")
+        supportFragmentManager
+            .beginTransaction()
+            .replace(
+                if (isTwoPane)
+                    R.id.frame_right
+                else
+                    R.id.container,
+                RightFragment(data)
+            )
+            .addToBackStack(null)
+            .commit()
     }
 
     fun search(view: View){

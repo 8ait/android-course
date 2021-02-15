@@ -8,6 +8,7 @@
     android:layout_margin="10dp">
 
     <TextView
+        android:id="@+id/project_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Название проекта"
@@ -17,6 +18,7 @@
         android:layout_gravity="center"/>
 
     <TextView
+        android:id="@+id/full_name"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +26,7 @@
         android:text="Полное название: "/>
 
     <TextView
+        android:id="@+id/language"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,6 +45,7 @@
             android:text="Владелец:"/>
 
         <TextView
+            android:id="@+id/owner_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -52,15 +56,15 @@
             tools:ignore="RtlCompat" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:cardCornerRadius="25dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="40dp"
             android:layout_margin="10dp"
             android:layout_gravity="center">
             <ImageView
                 android:id="@+id/ivPhoto"
-                android:layout_height="50dp"
-                android:layout_width="50dp"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
                 android:layout_gravity="center"
                 android:scaleType="center"
                 android:background="@color/black"/>
@@ -68,6 +72,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="16dp"
