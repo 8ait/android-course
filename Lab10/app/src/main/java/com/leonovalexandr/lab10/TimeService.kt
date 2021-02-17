@@ -23,14 +23,18 @@ class TimeService : Service() {
 
     private val myBinder = MyBinder()
 
+    private var interval:Int = 1
+
     override fun onBind(intent: Intent?): IBinder? {
         return myBinder
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        counter = intent?.getIntExtra("counter", 0) ?: 0
+        interval = intent?.getIntExtra("interval", 1) ?: 1
         job = GlobalScope.launch {
             while (true) {
-                delay(1000)
+                delay(interval * 1000L)
                 Log.d("SERVICE", "Timer Is Ticking: " + counter)
                 counter++
                 val intent = Intent(BROADCAST_TIME_EVENT)
@@ -45,9 +49,5 @@ class TimeService : Service() {
         Log.d("SERVICE", "onDestroy")
         job.cancel()
         super.onDestroy()
-    }
-
-    fun getCounter(): Int {
-        return counter
     }
 }

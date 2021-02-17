@@ -11,9 +11,29 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="36dp"
+        android:text="0"
         android:layout_margin="25dp"/>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Начальное значение:"/>
+
+        <EditText
+            android:id="@+id/startValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:inputType="number"/>
+
+    </LinearLayout>
     <TextView
         android:id="@+id/intervalValue"
         android:layout_width="match_parent"
@@ -26,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:max="10"
+        android:max="11"
         android:min="1"
         android:progress="1"
         android:layout_margin="15dp"/>
